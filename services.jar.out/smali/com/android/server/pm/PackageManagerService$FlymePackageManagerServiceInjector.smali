@@ -246,7 +246,6 @@
     .param p2, "allowed"    # Z
 
     .prologue
-    .line 13985
     if-nez p2, :cond_0
 
     iget v0, p1, Lcom/android/server/pm/BasePermission;->protectionLevel:I
@@ -255,17 +254,14 @@
 
     if-eqz v0, :cond_0
 
-    .line 13986
     invoke-static {p0}, Lcom/android/server/pm/ExternalSystemPackageManager;->isExternalSystemPackage(Landroid/content/pm/PackageParser$Package;)Z
 
     move-result v0
 
     if-eqz v0, :cond_0
 
-    .line 13987
     const/4 p2, 0x1
 
-    .line 13990
     :cond_0
     return p2
 .end method
@@ -295,43 +291,21 @@
 .end method
 
 .method static performFlymeBootDexOpt(Lcom/android/server/pm/PackageManagerService;Landroid/content/pm/PackageParser$Package;II)Z
-    .locals 12
+    .locals 9
     .param p0, "pms"    # Lcom/android/server/pm/PackageManagerService;
     .param p1, "pkg"    # Landroid/content/pm/PackageParser$Package;
     .param p2, "curr"    # I
     .param p3, "total"    # I
 
     .prologue
-    const/4 v11, 0x1
+    const/4 v8, 0x1
 
-    .line 13963
     invoke-virtual {p0}, Lcom/android/server/pm/PackageManagerService;->isFirstBoot()Z
 
     move-result v0
 
     if-nez v0, :cond_0
 
-    .line 13964
-    int-to-double v2, p2
-
-    int-to-double v4, p3
-
-    div-double v6, v2, v4
-
-    .line 13965
-    .local v6, "percent":D
-    const-wide/high16 v2, 0x4059000000000000L    # 100.0
-
-    mul-double/2addr v2, v6
-
-    const-wide/high16 v4, 0x3fe0000000000000L    # 0.5
-
-    sub-double/2addr v2, v4
-
-    double-to-int v8, v2
-
-    .line 13968
-    .local v8, "percentNum":I
     :try_start_0
     invoke-static {}, Landroid/app/ActivityManagerNative;->getDefault()Landroid/app/IActivityManager;
 
@@ -347,19 +321,27 @@
 
     move-result-object v3
 
-    sget v4, Lcom/flyme/internal/R$string;->dexopt_apps_apk_percent:I
+    sget v4, Lcom/flyme/internal/R$string;->dexopt_apps_apk:I
 
-    const/4 v5, 0x1
+    const/4 v5, 0x2
 
     new-array v5, v5, [Ljava/lang/Object;
 
-    const/4 v9, 0x0
+    const/4 v6, 0x0
 
-    invoke-static {v8}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
+    invoke-static {p2}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
 
-    move-result-object v10
+    move-result-object v7
 
-    aput-object v10, v5, v9
+    aput-object v7, v5, v6
+
+    const/4 v6, 0x1
+
+    invoke-static {p3}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
+
+    move-result-object v7
+
+    aput-object v7, v5, v6
 
     invoke-virtual {v3, v4, v5}, Landroid/content/res/Resources;->getString(I[Ljava/lang/Object;)Ljava/lang/String;
 
@@ -399,20 +381,15 @@
     :try_end_0
     .catch Landroid/os/RemoteException; {:try_start_0 .. :try_end_0} :catch_0
 
-    .line 13975
-    .end local v6    # "percent":D
-    .end local v8    # "percentNum":I
     :cond_0
     :goto_0
     move-object v1, p1
 
-    .line 13976
     .local v1, "p":Landroid/content/pm/PackageParser$Package;
-    iget-object v9, p0, Lcom/android/server/pm/PackageManagerService;->mInstallLock:Ljava/lang/Object;
+    iget-object v6, p0, Lcom/android/server/pm/PackageManagerService;->mInstallLock:Ljava/lang/Object;
 
-    monitor-enter v9
+    monitor-enter v6
 
-    .line 13977
     const/4 v2, 0x0
 
     const/4 v3, 0x0
@@ -426,26 +403,20 @@
     :try_start_1
     invoke-virtual/range {v0 .. v5}, Lcom/android/server/pm/PackageManagerService;->flymeInvokeMethodPerformDexOptLI(Landroid/content/pm/PackageParser$Package;[Ljava/lang/String;ZZZ)I
 
-    .line 13979
-    monitor-exit v9
+    monitor-exit v6
 
-    .line 13980
-    return v11
+    return v8
 
-    .line 13979
     :catchall_0
     move-exception v0
 
-    monitor-exit v9
+    monitor-exit v6
     :try_end_1
     .catchall {:try_start_1 .. :try_end_1} :catchall_0
 
     throw v0
 
-    .line 13972
     .end local v1    # "p":Landroid/content/pm/PackageParser$Package;
-    .restart local v6    # "percent":D
-    .restart local v8    # "percentNum":I
     :catch_0
     move-exception v0
 
@@ -460,18 +431,15 @@
     .param p3, "userHandle"    # I
 
     .prologue
-    .line 13996
     new-instance v10, Ljava/util/HashSet;
 
     invoke-direct {v10}, Ljava/util/HashSet;-><init>()V
 
-    .line 13997
     .local v10, "mActiveAdmins":Ljava/util/HashSet;, "Ljava/util/HashSet<Landroid/content/ComponentName;>;"
     new-instance v11, Ljava/util/ArrayList;
 
     invoke-direct {v11}, Ljava/util/ArrayList;-><init>()V
 
-    .line 14000
     .local v11, "mAvailableAdmins":Ljava/util/ArrayList;, "Ljava/util/ArrayList<Landroid/app/admin/DeviceAdminInfo;>;"
     :try_start_0
     move-object/from16 v0, p1
@@ -482,11 +450,9 @@
 
     move-result-object v5
 
-    .line 14001
     .local v5, "cur":Ljava/util/List;, "Ljava/util/List<Landroid/content/ComponentName;>;"
     if-eqz v5, :cond_0
 
-    .line 14002
     const/4 v7, 0x0
 
     .local v7, "i":I
@@ -497,7 +463,6 @@
 
     if-ge v7, v13, :cond_0
 
-    .line 14003
     invoke-interface {v5, v7}, Ljava/util/List;->get(I)Ljava/lang/Object;
 
     move-result-object v13
@@ -506,18 +471,15 @@
     :try_end_0
     .catch Landroid/os/RemoteException; {:try_start_0 .. :try_end_0} :catch_0
 
-    .line 14002
     add-int/lit8 v7, v7, 0x1
 
     goto :goto_0
 
-    .line 14006
     .end local v5    # "cur":Ljava/util/List;, "Ljava/util/List<Landroid/content/ComponentName;>;"
     .end local v7    # "i":I
     :catch_0
     move-exception v13
 
-    .line 14008
     :cond_0
     move-object/from16 v0, p0
 
@@ -539,13 +501,11 @@
 
     move-result-object v2
 
-    .line 14009
     .local v2, "avail":Ljava/util/List;, "Ljava/util/List<Landroid/content/pm/ResolveInfo;>;"
     if-nez v2, :cond_3
 
     const/4 v4, 0x0
 
-    .line 14010
     .local v4, "count":I
     :goto_1
     const/4 v7, 0x0
@@ -554,14 +514,12 @@
     :goto_2
     if-ge v7, v4, :cond_4
 
-    .line 14011
     invoke-interface {v2, v7}, Ljava/util/List;->get(I)Ljava/lang/Object;
 
     move-result-object v12
 
     check-cast v12, Landroid/content/pm/ResolveInfo;
 
-    .line 14013
     .local v12, "ri":Landroid/content/pm/ResolveInfo;
     :try_start_1
     new-instance v6, Landroid/app/admin/DeviceAdminInfo;
@@ -572,7 +530,6 @@
 
     invoke-direct {v6, v13, v12}, Landroid/app/admin/DeviceAdminInfo;-><init>(Landroid/content/Context;Landroid/content/pm/ResolveInfo;)V
 
-    .line 14014
     .local v6, "dpi":Landroid/app/admin/DeviceAdminInfo;
     invoke-virtual {v6}, Landroid/app/admin/DeviceAdminInfo;->isVisible()Z
 
@@ -590,14 +547,12 @@
 
     if-eqz v13, :cond_2
 
-    .line 14015
     :cond_1
     invoke-virtual {v11, v6}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
     :try_end_1
     .catch Lorg/xmlpull/v1/XmlPullParserException; {:try_start_1 .. :try_end_1} :catch_3
     .catch Ljava/io/IOException; {:try_start_1 .. :try_end_1} :catch_2
 
-    .line 14010
     .end local v6    # "dpi":Landroid/app/admin/DeviceAdminInfo;
     :cond_2
     :goto_3
@@ -605,7 +560,6 @@
 
     goto :goto_2
 
-    .line 14009
     .end local v4    # "count":I
     .end local v7    # "i":I
     .end local v12    # "ri":Landroid/content/pm/ResolveInfo;
@@ -616,7 +570,6 @@
 
     goto :goto_1
 
-    .line 14021
     .restart local v4    # "count":I
     .restart local v7    # "i":I
     :cond_4
@@ -639,13 +592,11 @@
 
     check-cast v9, Landroid/app/admin/DeviceAdminInfo;
 
-    .line 14022
     .local v9, "info":Landroid/app/admin/DeviceAdminInfo;
     invoke-virtual {v9}, Landroid/app/admin/DeviceAdminInfo;->getComponent()Landroid/content/ComponentName;
 
     move-result-object v3
 
-    .line 14023
     .local v3, "componentName":Landroid/content/ComponentName;
     if-eqz v3, :cond_5
 
@@ -661,7 +612,6 @@
 
     if-eqz v13, :cond_5
 
-    .line 14025
     :try_start_2
     move-object/from16 v0, p1
 
@@ -673,19 +623,16 @@
 
     goto :goto_4
 
-    .line 14026
     :catch_1
     move-exception v13
 
     goto :goto_4
 
-    .line 14030
     .end local v3    # "componentName":Landroid/content/ComponentName;
     .end local v9    # "info":Landroid/app/admin/DeviceAdminInfo;
     :cond_6
     return-void
 
-    .line 14018
     .end local v8    # "i$":Ljava/util/Iterator;
     .restart local v12    # "ri":Landroid/content/pm/ResolveInfo;
     :catch_2
@@ -693,7 +640,6 @@
 
     goto :goto_3
 
-    .line 14017
     :catch_3
     move-exception v13
 
@@ -706,18 +652,6 @@
 
     .prologue
     if-eqz p0, :cond_0
-
-    invoke-virtual {p0}, Landroid/content/ComponentName;->getPackageName()Ljava/lang/String;
-
-    move-result-object v1
-
-    const-string v2, "android"
-
-    invoke-virtual {v1, v2}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
-
-    move-result v1
-
-    if-eqz v1, :cond_0
 
     invoke-virtual {p0}, Landroid/content/ComponentName;->getClassName()Ljava/lang/String;
 
@@ -823,13 +757,6 @@
 
     iget-object v0, p0, Lcom/android/server/pm/PackageManagerService;->mAccessActivity:Landroid/content/pm/ActivityInfo;
 
-    const/16 v1, 0x480
-
-    iput v1, v0, Landroid/content/pm/ActivityInfo;->configChanges:I
-
-    .line 13939
-    iget-object v0, p0, Lcom/android/server/pm/PackageManagerService;->mAccessActivity:Landroid/content/pm/ActivityInfo;
-
     iput-boolean v3, v0, Landroid/content/pm/ActivityInfo;->exported:Z
 
     iget-object v0, p0, Lcom/android/server/pm/PackageManagerService;->mAccessActivity:Landroid/content/pm/ActivityInfo;
@@ -842,27 +769,22 @@
 
     iput-object v1, v0, Landroid/content/pm/ResolveInfo;->activityInfo:Landroid/content/pm/ActivityInfo;
 
-    .line 13942
     iget-object v0, p0, Lcom/android/server/pm/PackageManagerService;->mAccessInfo:Landroid/content/pm/ResolveInfo;
 
     iput v2, v0, Landroid/content/pm/ResolveInfo;->priority:I
 
-    .line 13943
     iget-object v0, p0, Lcom/android/server/pm/PackageManagerService;->mAccessInfo:Landroid/content/pm/ResolveInfo;
 
     iput v2, v0, Landroid/content/pm/ResolveInfo;->preferredOrder:I
 
-    .line 13944
     iget-object v0, p0, Lcom/android/server/pm/PackageManagerService;->mAccessInfo:Landroid/content/pm/ResolveInfo;
 
     iput v2, v0, Landroid/content/pm/ResolveInfo;->match:I
 
-    .line 13945
     iget-object v0, p0, Lcom/android/server/pm/PackageManagerService;->mAccessActivity:Landroid/content/pm/ActivityInfo;
 
     iput v3, v0, Landroid/content/pm/ActivityInfo;->uiOptions:I
 
-    .line 13946
     new-instance v0, Landroid/content/ComponentName;
 
     iget-object v1, p0, Lcom/android/server/pm/PackageManagerService;->mAndroidApplication:Landroid/content/pm/ApplicationInfo;
@@ -877,7 +799,6 @@
 
     iput-object v0, p0, Lcom/android/server/pm/PackageManagerService;->mAccessComponentName:Landroid/content/ComponentName;
 
-    .line 13947
     return-void
 .end method
 
@@ -886,7 +807,6 @@
     .param p0, "dst"    # Lcom/android/server/pm/PackageManagerService;
 
     .prologue
-    .line 13952
     :try_start_0
     iget-object v2, p0, Lcom/android/server/pm/PackageManagerService;->mContext:Landroid/content/Context;
 
@@ -902,13 +822,11 @@
 
     move-result v1
 
-    .line 13953
     .local v1, "powerMode":I
     const/4 v2, 0x3
 
     if-eq v1, v2, :cond_0
 
-    .line 13954
     new-instance v0, Landroid/content/ComponentName;
 
     const-string v2, "com.meizu.powersave"
@@ -917,7 +835,6 @@
 
     invoke-direct {v0, v2, v3}, Landroid/content/ComponentName;-><init>(Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 13955
     .local v0, "name":Landroid/content/ComponentName;
     const/4 v2, 0x2
 
@@ -929,14 +846,12 @@
     :try_end_0
     .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_0} :catch_0
 
-    .line 13960
     .end local v0    # "name":Landroid/content/ComponentName;
     .end local v1    # "powerMode":I
     :cond_0
     :goto_0
     return-void
 
-    .line 13957
     :catch_0
     move-exception v2
 
@@ -948,12 +863,10 @@
     .param p0, "context"    # Landroid/content/Context;
 
     .prologue
-    .line 14035
     sget-object v1, Lcom/android/server/pm/PackageManagerService$FlymePackageManagerServiceInjector;->mPms:Lcom/android/server/pm/PackageManagerService;
 
     if-eqz v1, :cond_0
 
-    .line 14036
     new-instance v0, Lcom/android/server/pm/FlymePackageManagerService;
 
     sget-object v1, Lcom/android/server/pm/PackageManagerService$FlymePackageManagerServiceInjector;->mPms:Lcom/android/server/pm/PackageManagerService;
@@ -964,7 +877,6 @@
 
     invoke-direct {v0, p0, v1, v2}, Lcom/android/server/pm/FlymePackageManagerService;-><init>(Landroid/content/Context;Lcom/android/server/pm/PackageManagerService;Lcom/android/server/pm/Installer;)V
 
-    .line 14039
     :goto_0
     return-object v0
 
