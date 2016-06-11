@@ -39,6 +39,7 @@
     .end annotation
 
     .prologue
+    .line 74
     new-instance v0, Landroid/bluetooth/BluetoothServerSocket;
 
     const/4 v1, 0x1
@@ -55,18 +56,22 @@
 
     invoke-direct/range {v0 .. v5}, Landroid/bluetooth/BluetoothServerSocket;-><init>(IZZLandroid/os/ParcelUuid;I)V
 
+    .line 76
     .local v0, "socket":Landroid/bluetooth/BluetoothServerSocket;
     invoke-virtual {v0, p0}, Landroid/bluetooth/BluetoothServerSocket;->setServiceName(Ljava/lang/String;)V
 
+    .line 77
     iget-object v1, v0, Landroid/bluetooth/BluetoothServerSocket;->mSocket:Landroid/bluetooth/BluetoothSocket;
 
     invoke-virtual {v1}, Landroid/bluetooth/BluetoothSocket;->bindListen()I
 
     move-result v6
 
+    .line 78
     .local v6, "errno":I
     if-eqz v6, :cond_0
 
+    .line 82
     new-instance v1, Ljava/io/IOException;
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -91,6 +96,7 @@
 
     throw v1
 
+    .line 84
     :cond_0
     return-object v0
 .end method
@@ -101,6 +107,7 @@
     .param p1, "persist"    # Z
 
     .prologue
+    .line 95
     invoke-virtual {p0, p1}, Landroid/bluetooth/BluetoothAdapter;->disable(Z)Z
 
     move-result v0
@@ -115,6 +122,7 @@
     .prologue
     const/4 v1, 0x1
 
+    .line 55
     :try_start_0
     invoke-virtual {p0}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
 
@@ -130,12 +138,15 @@
 
     move-result v1
 
+    .line 62
     :goto_0
     return v1
 
+    .line 57
     :catch_0
     move-exception v0
 
+    .line 59
     .local v0, "e":Ljava/lang/Exception;
     invoke-virtual {v0}, Ljava/lang/Exception;->printStackTrace()V
 
@@ -156,6 +167,7 @@
     .prologue
     const/4 v0, 0x0
 
+    .line 68
     invoke-static {p0, p1, v0, v0, p2}, Landroid/bluetooth/BluetoothAdapterExt;->createNewRfcommSocketAndRecord(Ljava/lang/String;Ljava/util/UUID;ZZI)Landroid/bluetooth/BluetoothServerSocket;
 
     move-result-object v0
@@ -169,6 +181,7 @@
     .param p1, "status"    # I
 
     .prologue
+    .line 40
     :try_start_0
     invoke-virtual {p0}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
 
@@ -180,12 +193,15 @@
     :try_end_0
     .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_0} :catch_0
 
+    .line 46
     :goto_0
     return-void
 
+    .line 42
     :catch_0
     move-exception v0
 
+    .line 44
     .local v0, "e":Ljava/lang/Exception;
     invoke-virtual {v0}, Ljava/lang/Exception;->printStackTrace()V
 
