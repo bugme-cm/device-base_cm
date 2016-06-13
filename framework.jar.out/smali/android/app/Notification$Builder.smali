@@ -5124,17 +5124,14 @@
     .param p1, "dst"    # Landroid/app/Notification;
 
     .prologue
-    .line 3739
     iget-object v0, p0, Landroid/app/Notification$Builder;->mFlymeSnoozeIntent:Landroid/app/PendingIntent;
 
     iput-object v0, p1, Landroid/app/Notification;->snoozeIntent:Landroid/app/PendingIntent;
 
-    .line 3742
     iget-object v0, p0, Landroid/app/Notification$Builder;->mFlymeReplyIntent:Landroid/app/PendingIntent;
 
     iput-object v0, p1, Landroid/app/Notification;->replyIntent:Landroid/app/PendingIntent;
 
-    .line 3744
     iget-object v0, p1, Landroid/app/Notification;->mFlymeNotification:Landroid/app/NotificationExt;
 
     iget-object v1, p0, Landroid/app/Notification$Builder;->mFlymeNotificationBuilder:Landroid/app/NotificationBuilderExt;
@@ -5487,17 +5484,14 @@
     .param p1, "n"    # Landroid/app/Notification;
 
     .prologue
-    .line 3676
     iget-object v0, p1, Landroid/app/Notification;->snoozeIntent:Landroid/app/PendingIntent;
 
     iput-object v0, p0, Landroid/app/Notification$Builder;->mFlymeSnoozeIntent:Landroid/app/PendingIntent;
 
-    .line 3679
     iget-object v0, p1, Landroid/app/Notification;->replyIntent:Landroid/app/PendingIntent;
 
     iput-object v0, p0, Landroid/app/Notification$Builder;->mFlymeReplyIntent:Landroid/app/PendingIntent;
 
-    .line 3681
     return-void
 .end method
 
