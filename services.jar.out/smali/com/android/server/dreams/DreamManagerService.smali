@@ -1095,8 +1095,6 @@
 
     move-result v3
 
-    const/4 v3, 0x0
-
     if-eqz v3, :cond_3
 
     .local v0, "enabled":Z

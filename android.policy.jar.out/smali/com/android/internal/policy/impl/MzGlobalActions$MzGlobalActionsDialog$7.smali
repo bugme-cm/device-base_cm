@@ -3,12 +3,12 @@
 .source "MzGlobalActions.java"
 
 # interfaces
-.implements Ljava/lang/Runnable;
+.implements Landroid/animation/Animator$AnimatorListener;
 
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lcom/android/internal/policy/impl/MzGlobalActions$MzGlobalActionsDialog;->onStart()V
+    value = Lcom/android/internal/policy/impl/MzGlobalActions$MzGlobalActionsDialog;->prepareAnimators()V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -35,36 +35,34 @@
 
 
 # virtual methods
-.method public run()V
-    .locals 4
+.method public onAnimationCancel(Landroid/animation/Animator;)V
+    .locals 0
+    .param p1, "animation"    # Landroid/animation/Animator;
 
     .prologue
-    iget-object v0, p0, Lcom/android/internal/policy/impl/MzGlobalActions$MzGlobalActionsDialog$7;->this$1:Lcom/android/internal/policy/impl/MzGlobalActions$MzGlobalActionsDialog;
+    return-void
+.end method
 
-    # getter for: Lcom/android/internal/policy/impl/MzGlobalActions$MzGlobalActionsDialog;->mFadeOutSet:Landroid/animation/AnimatorSet;
-    invoke-static {v0}, Lcom/android/internal/policy/impl/MzGlobalActions$MzGlobalActionsDialog;->access$500(Lcom/android/internal/policy/impl/MzGlobalActions$MzGlobalActionsDialog;)Landroid/animation/AnimatorSet;
+.method public onAnimationEnd(Landroid/animation/Animator;)V
+    .locals 0
+    .param p1, "animation"    # Landroid/animation/Animator;
 
-    move-result-object v0
+    .prologue
+    return-void
+.end method
 
-    invoke-virtual {v0}, Landroid/animation/AnimatorSet;->isRunning()Z
+.method public onAnimationRepeat(Landroid/animation/Animator;)V
+    .locals 0
+    .param p1, "animation"    # Landroid/animation/Animator;
 
-    move-result v0
+    .prologue
+    return-void
+.end method
 
-    if-nez v0, :cond_0
+.method public onAnimationStart(Landroid/animation/Animator;)V
+    .locals 0
+    .param p1, "animation"    # Landroid/animation/Animator;
 
-    iget-object v0, p0, Lcom/android/internal/policy/impl/MzGlobalActions$MzGlobalActionsDialog$7;->this$1:Lcom/android/internal/policy/impl/MzGlobalActions$MzGlobalActionsDialog;
-
-    # getter for: Lcom/android/internal/policy/impl/MzGlobalActions$MzGlobalActionsDialog;->mHandler:Landroid/os/Handler;
-    invoke-static {v0}, Lcom/android/internal/policy/impl/MzGlobalActions$MzGlobalActionsDialog;->access$700(Lcom/android/internal/policy/impl/MzGlobalActions$MzGlobalActionsDialog;)Landroid/os/Handler;
-
-    move-result-object v0
-
-    const/4 v1, 0x1
-
-    const-wide/16 v2, 0x320
-
-    invoke-virtual {v0, v1, v2, v3}, Landroid/os/Handler;->sendEmptyMessageDelayed(IJ)Z
-
-    :cond_0
+    .prologue
     return-void
 .end method
